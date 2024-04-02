@@ -19,7 +19,7 @@ public class Passenger extends Person {
         return person;
     }
 
-    public ArrayList<Flight> flights(){
+    public ArrayList<Flight> getFlights(){
         return flights;
     }
 
@@ -29,4 +29,9 @@ public class Passenger extends Person {
             newFlight.addPassenger(this);
         }
     }
+
+    public void removeFlight(Flight newFlight) {
+            flights.remove(newFlight);        
+    }
+  
 }

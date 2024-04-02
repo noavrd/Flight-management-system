@@ -10,7 +10,6 @@ public class CrewMember extends Person {
         airline.addStaff(this);   
         this.crewMemberId = crewMemberId;
         this.salary = salary;
-
     }
 
     public int getCrewMemberId(){

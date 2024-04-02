@@ -10,9 +10,10 @@ public class Flight implements Airline {
     private int flightDuration;
     private Airline airline;
     private ArrayList<Passenger> passengers;
+    private PersonNotification notification; // לבדוק אם זה שימוש נכוו
     //לבדוק מתי להוסיף פיינל
 
-   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightTime, int flightDuration,  Airline airline, ArrayList<Passenger> passengers) {
+   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightTime, int flightDuration,  Airline airline, ArrayList<Passenger>, passengers PersonNotification notification) {
         this.flightNumber = flightNumber;
         this.price = price;
         this.departureTime = departureTime;
@@ -21,6 +22,7 @@ public class Flight implements Airline {
         this.flightDuration = flightDuration;
         this.airline = airline;
         this.passengers =  new ArrayList<Passenger>();
+        this.notification = notification;
     }
 
     public int getFlightNumber() {
@@ -101,4 +103,15 @@ public class Flight implements Airline {
         return getNumberOfPassengers();
     }
 
+    @Override
+    public int totalProfits() {
+        return getPrice();
+    }
+
+    public void removePassenger(Passenger passenger){
+        if (passengers.contains(passenger)){
+            passenger.removeFlight(this);
+            passengers.remove(passenger);
+        }
+    }
 }

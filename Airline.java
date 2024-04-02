@@ -10,4 +10,10 @@ public interface Airline {
      * @return The number of passengers the airline has.
     */
     int totalPassengers();
+
+    /**
+     *
+     * @return The airline profits.
+    */
+    int totalProfits();
 }

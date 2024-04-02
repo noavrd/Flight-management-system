@@ -31,26 +31,101 @@ public class SingleAirline implements Airline {
     }
 
     public void addFlight(Flight newFlight) {
-        airlineFlights.add(newFlight);
+        if (!airlineFlights.contains(newFlight)){
+            airlineFlights.add(newFlight);
+        }
+    }
+
+    public void cancelFlight(Flight flight) {
+        airlineFlights.remove(flight);
     }
 
     public void addSubAirline(SingleAirline newSubAirline){
-        subAirlines.add(newSubAirline);
+        if (!subAirlines.contains(newSubAirline)) {
+            subAirlines.add(newSubAirline);
+        }
     }
 
-    
     public void addStaff(CrewMember newCrewMember){
-        staff.add(newCrewMember);
+        if (!staff.contains(newCrewMember)) {
+            staff.add(newCrewMember);
+        }
     }
 
-    // change
+    public int getNumberOfStaff() {
+        return staff.size();
+    }
+
+    // calculate paychecks to be able to calculate profits
+    public int paychecks() {
+        int total = 0;
+    
+        for (CrewMember crewMember : staff) {
+            total += crewMember.getSalary();
+        }
+
+        for(SingleAirline airline : subAirlines) {
+            total += airline.paychecks();
+        }
+
+        return total;
+    }
+
+    // אם הכל עובד לשנות את זה שיהיה גנרי ככה:
+
+    // private int calculateTotal( String getByFlight, getByAirline ) {
+    //     int total = 0;
+    //     for(Flight flight : airlineFlights) {
+    //         total += getByFlight;
+    //     }
+
+    //     for(SingleAirline airline : subAirlines) {
+    //         total += getByAirline;
+    //     }
+
+    //     return total;
+    // }
+
     @java.lang.Override
     public int totalFlights () {
-        return 1;
+        int total = 0;
+        for(Flight flight : airlineFlights) {
+            total += flight.totalFlights();
+        }
+
+        for(SingleAirline airline : subAirlines) {
+            total += airline.totalFlights();
+        }
+
+        return total;
     }
 
     @java.lang.Override
     public int totalPassengers () {
-        return 1;
+        int total = 0;
+        for(Flight flight : airlineFlights) {
+            total += flight.totalPassengers();
+        }
+
+        for(SingleAirline airline : subAirlines) {
+            total += airline.totalPassengers();
+        }
+
+        return total;
     }
+
+    @Override
+    public int totalProfits() {
+        int total = 0;
+        for(Flight flight : airlineFlights) {
+            total += flight.totalPassengers();
+        }
+
+        for(SingleAirline airline : subAirlines) {
+            total += airline.totalPassengers();
+        }
+
+        return total - this.paychecks();
+    }
+
 }
