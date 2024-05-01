@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Flight implements Airline {
+public class Flight implements AirlineCalculate {
     // private int id;
     private int flightNumber;
     private int price;
@@ -11,7 +11,6 @@ public class Flight implements Airline {
     private Airline airline;
     private ArrayList<Passenger> passengers;
     private PersonNotification notification; // לבדוק אם זה שימוש נכוו
-    //לבדוק מתי להוסיף פיינל
 
    public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightTime, int flightDuration,  Airline airline, ArrayList<Passenger>, passengers PersonNotification notification) {
         this.flightNumber = flightNumber;
