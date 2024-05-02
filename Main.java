@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Airport airport = new Airport();
+        airport.addMockData();
         Scanner scanner = new Scanner(System.in);
 
         boolean exit = false;
