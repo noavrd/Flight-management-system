@@ -3,16 +3,19 @@ import java.util.ArrayList;
 public class Airline implements AirlineCalculate {
     
     private String name;
+    // using composite design pattern
     private ArrayList<Flight> airlineFlights;
-    private ArrayList<SingleAirline> subAirlines;
+    private ArrayList<Airline> subAirlines;
     private ArrayList<CrewMember> staff;
 
-    public SingleAirline(String name, ArrayList<Flight> airlineFlights, ArrayList<SingleAirline> aubAirlines, ArrayList<CrewMember> Staff){
+    public Airline(String name, ArrayList<Flight> airlineFlights, ArrayList<Airline> aubAirlines, ArrayList<CrewMember> Staff){
         this.name = name;
         this.airlineFlights =new ArrayList<Flight>();
-        this.subAirlines = new ArrayList<SingleAirline>();
+        this.subAirlines = new ArrayList<Airline>();
         this.staff = new ArrayList<CrewMember>();
     }
+
+    
 
     public String getName() {
         return name;
@@ -22,7 +25,7 @@ public class Airline implements AirlineCalculate {
         return airlineFlights;
     }
     
-    public ArrayList<SingleAirline> getSubAirlines(){
+    public ArrayList<Airline> getSubAirlines(){
         return subAirlines;
     }
     
@@ -40,7 +43,7 @@ public class Airline implements AirlineCalculate {
         airlineFlights.remove(flight);
     }
 
-    public void addSubAirline(SingleAirline newSubAirline){
+    public void addSubAirline(Airline newSubAirline){
         if (!subAirlines.contains(newSubAirline)) {
             subAirlines.add(newSubAirline);
         }
@@ -64,7 +67,7 @@ public class Airline implements AirlineCalculate {
             total += crewMember.getSalary();
         }
 
-        for(SingleAirline airline : subAirlines) {
+        for(Airline airline : subAirlines) {
             total += airline.paychecks();
         }
 
@@ -79,7 +82,7 @@ public class Airline implements AirlineCalculate {
     //         total += getByFlight;
     //     }
 
-    //     for(SingleAirline airline : subAirlines) {
+    //     for(Airline airline : subAirlines) {
     //         total += getByAirline;
     //     }
 
@@ -93,7 +96,7 @@ public class Airline implements AirlineCalculate {
             total += flight.totalFlights();
         }
 
-        for(SingleAirline airline : subAirlines) {
+        for(Airline airline : subAirlines) {
             total += airline.totalFlights();
         }
 
@@ -107,7 +110,7 @@ public class Airline implements AirlineCalculate {
             total += flight.totalPassengers();
         }
 
-        for(SingleAirline airline : subAirlines) {
+        for(Airline airline : subAirlines) {
             total += airline.totalPassengers();
         }
 
@@ -121,11 +124,36 @@ public class Airline implements AirlineCalculate {
             total += flight.totalPassengers();
         }
 
-        for(SingleAirline airline : subAirlines) {
+        for(Airline airline : subAirlines) {
             total += airline.totalPassengers();
         }
 
         return total - this.paychecks();
+    }
+
+    public void printFlights() {
+        if (this.getAirlineFlights() == null) {
+            System.out.println("There are no flights available");
+            return;
+        }
+
+        System.out.println(this.getName() + "Flights: ");
+        for (Flight flight: airlineFlights) {
+            flight.printFlightDetails();
+        }
+    }
+
+    
+    public void printStaff() {
+        if (this.getStaff() == null) {
+            System.out.println("There are no staff available");
+            return;
+        }
+
+        System.out.println(this.getName() + " staff: ");
+        for (CrewMember crewMember: staff) {
+            crewMember.printCrewMember();
+        }
     }
 
 }

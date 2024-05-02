@@ -1,11 +1,11 @@
 public class CrewMember extends Person {
 
     private Person person;
-    public SingleAirline airline;
+    public Airline airline;
     public int crewMemberId;
     private int salary;
 
-    public CrewMember(int id, String firstName, String lastName, SingleAirline airline, int crewMemberId, int salary) {
+    public CrewMember(int id, String firstName, String lastName, Airline airline, int crewMemberId, int salary) {
         super(id, firstName, lastName);
         airline.addStaff(this);   
         this.crewMemberId = crewMemberId;
@@ -20,8 +20,8 @@ public class CrewMember extends Person {
         return salary;
     }
 
-    public Person getPerson(){
-        return person;
+    public void printCrewMember() {
+        System.out.println("Name: " + this.getFirstName() + " " + this.getLastName());
     }
     
 }

@@ -12,7 +12,7 @@ public class Flight implements AirlineCalculate {
     private ArrayList<Passenger> passengers;
     private PersonNotification notification; // לבדוק אם זה שימוש נכוו
 
-   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightTime, int flightDuration,  Airline airline, ArrayList<Passenger>, passengers PersonNotification notification) {
+   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightTime, int flightDuration,  Airline airline, ArrayList<Passenger> passengers, PersonNotification notification) {
         this.flightNumber = flightNumber;
         this.price = price;
         this.departureTime = departureTime;
@@ -112,5 +112,9 @@ public class Flight implements AirlineCalculate {
             passenger.removeFlight(this);
             passengers.remove(passenger);
         }
+    }
+
+    public void printFlightDetails() {
+        System.out.println("Flight number: " + this.getFlightNumber() + ", Departure time: " + this.getDepartureTime() + ", Arrival time: " + this.getArrivalTime());
     }
 }
