@@ -96,7 +96,33 @@ public class Airport {
 
 
     public void searchFlightsOptions() {
+        System.out.println("Search by:");
 
+        System.out.println("1. Price");
+        System.out.println("2. Departure time");
+        System.out.println("2. Flight duration");
+
+
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); 
+
+        switch (choice) {
+            case 1:
+               
+                break;
+
+            case 2:
+                  
+                break;
+
+            case 3:
+                  
+                break;
+            default:
+                System.out.println("Invalid choice! Try again");
+                watchAndManageAirlineOptions();
+        }
     }
 
 

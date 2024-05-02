@@ -23,15 +23,13 @@ public class Main {
             int choice = scanner.nextInt();
             scanner.nextLine(); // consume newline
 
-            // String currentUserType = "";
             switch (choice) {
                 case 1:
                     // system.signInDetails(currentUserType);
                     break;
 
                 case 2:
-                airport.watchAndManageAirlineOptions();
-                    // system.logInDetails(currentUserType);
+                    airport.watchAndManageAirlineOptions();
                     break;
 
                 // case 3:
