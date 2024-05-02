@@ -82,6 +82,7 @@ public class Airline implements AirlineCalculate {
            staff.get(i).printCrewMember();
         }
 
+        // אם יש זמן לתקן את זה שזה לא מצליח למחוק את השורה האחרונה
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine(); 

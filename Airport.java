@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Airport {
 
-    // using singelton
+    // using singelton design pattern to make sure there is only one airport
     private static Airport instance;
 
     private String name;
@@ -73,6 +73,7 @@ public class Airport {
     }
 
 
+    // Choose airline to get it's data and method by user choice
     public Airline chooseAirlineByName(ArrayList<Airline> airlinesToChoose) {
         // handle case there are no airlines
         if (airlinesToChoose == null) {
@@ -101,7 +102,7 @@ public class Airport {
 
 
 
-
+    // A function to choose if to watch or manage the airline data
     public void watchAndManageAirlineOptions(){
         System.out.println("What would you like to do:");
 
@@ -112,7 +113,6 @@ public class Airport {
         int choice = scanner.nextInt();
         scanner.nextLine(); 
 
-     
         switch (choice) {
             case 1:
                 Airline chosenAirline = chooseAirlineByName(airlines);
@@ -138,10 +138,9 @@ public class Airport {
                 System.out.println("Invalid choice! Try again");
                 watchAndManageAirlineOptions();
         }
-
-
     }
 
+    // A function to watch airline data by user choice
     public void watchAirline(Airline chosenAirline) {
         System.out.println("What would you like to do:");
 
@@ -150,17 +149,14 @@ public class Airport {
         System.out.println("3. Watch sub airlines");
         System.out.println("4. Watch other data");
 
-
-
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine(); 
 
-
         switch (choice) {
             case 1:
-            chosenAirline.printFlights();
-            break;
+                chosenAirline.printFlights();
+                break;
 
             case 2:
                 chosenAirline.printStaff();
@@ -180,10 +176,9 @@ public class Airport {
                 System.out.println("Invalid choice! Try again");
                 watchAirline(chosenAirline);
         }
-
-
     }
 
+    // A function to show and act some methods on airlines
     public void manageAirline(Airline chosenAirline) {
         System.out.println("What would you like to do:");
 
@@ -193,12 +188,9 @@ public class Airport {
         System.out.println("4. Remove staff member");
         System.out.println("5. Manage sub airlines");
 
-
-
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine(); 
-
 
         switch (choice) {
             case 1:
@@ -221,7 +213,6 @@ public class Airport {
             case 2:
                 chosenAirline.cancelFlight();
                 System.out.print("Flight cancel successfully ");
-
                 break;
             
             case 3:
@@ -239,29 +230,21 @@ public class Airport {
                 CrewMember newCrewMember = new CrewMember(id, firstName, lastName, chosenAirline, crewMemberId, salary);
                 chosenAirline.addStaff(newCrewMember);    
                 System.out.print("Flight added successfully ");
- 
                 break;
 
             case 4:
                 chosenAirline.removeStaffMember();
                 System.out.print("Crew member deleted successfully ");
-
                 break;
             
             case 5:
                 Airline chosenSubAirline = chooseAirlineByName(chosenAirline.getSubAirlines());
-
-                
-
+                watchAirline(chosenSubAirline);
                 break;
+
             default:
                 System.out.println("Invalid choice! Try again");
                 manageAirline(chosenAirline);
         }
-
-
     }
-
-
-    
 }
