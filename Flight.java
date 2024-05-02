@@ -6,18 +6,16 @@ public class Flight implements AirlineCalculate {
     private int price;
     private int departureTime;
     private int arrivalTime;
-    private int flightTime;
     private int flightDuration;
     private Airline airline;
     private ArrayList<Passenger> passengers;
     private PersonNotification notification; // לבדוק אם זה שימוש נכוו
 
-   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightTime, int flightDuration,  Airline airline, ArrayList<Passenger> passengers, PersonNotification notification) {
+   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightDuration,  Airline airline, ArrayList<Passenger> passengers, PersonNotification notification) {
         this.flightNumber = flightNumber;
         this.price = price;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.flightTime = flightTime;
         this.flightDuration = flightDuration;
         this.airline = airline;
         this.passengers =  new ArrayList<Passenger>();
@@ -38,10 +36,6 @@ public class Flight implements AirlineCalculate {
 
     public int getArrivalTime() {
         return arrivalTime;
-    }
-
-    public int getFlightTime() {
-        return flightTime;
     }
 
     public int geFlightDuration() {
@@ -71,10 +65,7 @@ public class Flight implements AirlineCalculate {
     public void setArrivalTime(int newArrivalTime) {
         arrivalTime = newArrivalTime;
     }
-    
-    public void setFlightTime(int newFlightTime) {
-        flightTime = newFlightTime;
-    }
+
 
     public void setFlightDuration(int newFlightDuration) {
         flightDuration = newFlightDuration;

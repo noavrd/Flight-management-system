@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Airline implements AirlineCalculate {
     
@@ -8,6 +9,9 @@ public class Airline implements AirlineCalculate {
     private ArrayList<Airline> subAirlines;
     private ArrayList<CrewMember> staff;
 
+    Scanner scanner = new Scanner(System.in);
+
+
     public Airline(String name, ArrayList<Flight> airlineFlights, ArrayList<Airline> aubAirlines, ArrayList<CrewMember> Staff){
         this.name = name;
         this.airlineFlights =new ArrayList<Flight>();
@@ -15,7 +19,6 @@ public class Airline implements AirlineCalculate {
         this.staff = new ArrayList<CrewMember>();
     }
 
-    
 
     public String getName() {
         return name;
@@ -39,8 +42,24 @@ public class Airline implements AirlineCalculate {
         }
     }
 
-    public void cancelFlight(Flight flight) {
-        airlineFlights.remove(flight);
+    public void cancelFlight() {
+        if (this.getAirlineFlights() == null) {
+            System.out.println("There are no flights available");
+            return;
+        }
+
+        System.out.println("Choose flight to cancel: ");
+
+        for (int i = 0; i < airlineFlights.size(); i++) {
+           System.out.print(i + 1 + ". ");
+           airlineFlights.get(i).printFlightDetails();
+        }
+
+        
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); 
+        airlineFlights.remove(airlineFlights.get(choice - 1));
     }
 
     public void addSubAirline(Airline newSubAirline){
@@ -54,6 +73,21 @@ public class Airline implements AirlineCalculate {
             staff.add(newCrewMember);
         }
     }
+
+    public void removeStaffMember() {
+        System.out.println("Choose crew member to remove: ");
+
+        for (int i = 0; i < staff.size(); i++) {
+           System.out.print(i + 1 + ". ");
+           staff.get(i).printCrewMember();
+        }
+
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); 
+        staff.remove(staff.get(choice));
+    }
+
 
     public int getNumberOfStaff() {
         return staff.size();
@@ -73,21 +107,6 @@ public class Airline implements AirlineCalculate {
 
         return total;
     }
-
-    // אם הכל עובד לשנות את זה שיהיה גנרי ככה:
-
-    // private int calculateTotal( String getByFlight, getByAirline ) {
-    //     int total = 0;
-    //     for(Flight flight : airlineFlights) {
-    //         total += getByFlight;
-    //     }
-
-    //     for(Airline airline : subAirlines) {
-    //         total += getByAirline;
-    //     }
-
-    //     return total;
-    // }
 
     @java.lang.Override
     public int totalFlights () {
@@ -121,7 +140,7 @@ public class Airline implements AirlineCalculate {
     public int totalProfits() {
         int total = 0;
         for(Flight flight : airlineFlights) {
-            total += flight.totalPassengers();
+            total += flight.totalPassengers() * flight.getPrice();
         }
 
         for(Airline airline : subAirlines) {
@@ -137,7 +156,7 @@ public class Airline implements AirlineCalculate {
             return;
         }
 
-        System.out.println(this.getName() + "Flights: ");
+        System.out.println(this.getName() + " flights: ");
         for (Flight flight: airlineFlights) {
             flight.printFlightDetails();
         }
@@ -153,6 +172,18 @@ public class Airline implements AirlineCalculate {
         System.out.println(this.getName() + " staff: ");
         for (CrewMember crewMember: staff) {
             crewMember.printCrewMember();
+        }
+    }
+
+    public void printSubAirlines() {
+        if (this.getStaff() == null) {
+            System.out.println("There are no sub airlines available");
+            return;
+        }
+
+        System.out.println(this.getName() + " sub airlines:");
+        for (Airline airline: subAirlines) {
+            System.out.println(airline.getName());
         }
     }
 
