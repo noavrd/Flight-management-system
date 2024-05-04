@@ -1,23 +1,24 @@
-import java.util.ArrayList;
+public class PersonNotification {
+    private Observer observer;
+    private String message;
 
-class PersonNotification implements Notification {
-    private ArrayList<Observer> observers;
-
-    public PersonNotification() {
-        this.observers = new ArrayList<Observer>();
+    public PersonNotification(Observer observer, String message) {
+        this.observer = observer;
+        this.message = message;
     }
 
-    @Override
-    public void register(Observer observer) {
-        observers.add(observer);
+
+    public void sendNotification(){
+        observer.update(this);
     }
 
-    @Override
-    public void remove(Observer observer) {
-        observers.remove(observer);
+    public void printNotification(){
+        Person newObserver = (Person) this.observer;
+        System.out.println( newObserver.getFirstName() + " you just got new notification: " + message);
     }
 
-    public void printNotification(String message){
-        System.out.println(message);
+    public String toString(){
+        Person newObserver = (Person) this.observer;
+        return "Notification for " + newObserver.getFirstName() + ": " + message;
     }
 }

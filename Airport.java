@@ -25,8 +25,8 @@ public class Airport {
 
         // Creating airline 1 with mock flights and crew members
         Airline airline1 = new Airline("Airline A", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        Flight flight1 = new Flight(101, 200, 900, 1200, 3, airline1, new ArrayList<>(), null);
-        Flight flight2 = new Flight(102, 250, 1100, 1400, 3, airline1, new ArrayList<>(), null);
+        Flight flight1 = new Flight(101, 200, 3, 6, 3, airline1, new ArrayList<>(), null);
+        Flight flight2 = new Flight(102, 250, 4, 7, 3, airline1, new ArrayList<>(), null);
         airline1.addFlight(flight1);
         airline1.addFlight(flight2);
         airline1.addStaff(new CrewMember(1, "John", "Doe", airline1, 101, 5000));
@@ -41,8 +41,8 @@ public class Airport {
 
         // Creating airline 2 with mock flights and crew members
         Airline airline2 = new Airline("Airline B", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        Flight flight3 = new Flight(103, 20000, 800, 1100, 2, airline2, new ArrayList<>(), null);
-        Flight flight4 = new Flight(104, 40000, 1000, 1300, 2, airline2, new ArrayList<>(), null);
+        Flight flight3 = new Flight(103, 20000, 10, 21, 11, airline2, new ArrayList<>(), null);
+        Flight flight4 = new Flight(104, 40000, 14, 18, 4, airline2, new ArrayList<>(), null);
         airline2.addFlight(flight3);
         airline2.addFlight(flight4);
         airline2.addStaff(new CrewMember(3, "Michael", "Johnson", airline2, 103, 4800));
@@ -57,8 +57,8 @@ public class Airport {
 
         // Creating airline 3 with mock flights and crew members
         Airline airline3 = new Airline("Airline C", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        Flight flight5 = new Flight(105, 300, 1200, 1500, 4, airline3, new ArrayList<>(), null);
-        Flight flight6 = new Flight(106, 280, 1300, 1600, 4, airline3, new ArrayList<>(), null);
+        Flight flight5 = new Flight(105, 200, 10, 15, 5, airline3, new ArrayList<>(), null);
+        Flight flight6 = new Flight(106, 280, 13, 16, 3, airline3, new ArrayList<>(), null);
         airline3.addFlight(flight5);
         airline3.addFlight(flight6);
         airline3.addStaff(new CrewMember(5, "David", "Brown", airline3, 105, 4900));
@@ -95,6 +95,18 @@ public class Airport {
     }
 
 
+    public ArrayList<Flight> getAllFlights() {
+        ArrayList<Flight> flights = new ArrayList();
+        for (Airline airline: airlines) {
+            ArrayList<Flight> airlineFlights = airline.getAirlineFlights();
+            for (Flight airlineFlight : airlineFlights) {
+                flights.add(airlineFlight);
+            }
+        }
+
+        return flights;
+    }
+
     public void searchFlightsOptions() {
         System.out.println("Search by:");
 
@@ -107,21 +119,61 @@ public class Airport {
         int choice = scanner.nextInt();
         scanner.nextLine(); 
 
+        ArrayList<Flight> matchingFlights = new ArrayList<>();
         switch (choice) {
             case 1:
-               
+                System.out.println("Enter price: ");
+                int price = scanner.nextInt();
+                
+                if (price <= 0) {
+                    System.out.println("Invalid price!");
+                    return;
+                }
+
+                SearchFlightsByPrice searchByPrice = new SearchFlightsByPrice(price);
+                matchingFlights = searchByPrice.search(getAllFlights());
+                for (Flight flight: matchingFlights) {
+                    flight.printFlightDetails();
+                }
+
                 break;
 
             case 2:
-                  
+                System.out.println("Enter departure time: ");
+                int departureTime = scanner.nextInt();
+                
+                if (departureTime <= 0 || departureTime > 24) {
+                    System.out.println("Invalid time!");
+                    return;
+                }
+
+                
+                SearchFlightsByDepartureTime searchByDepartureTime = new SearchFlightsByDepartureTime(departureTime);
+                matchingFlights = searchByDepartureTime.search(getAllFlights());
+                for (Flight flight: matchingFlights) {
+                    flight.printFlightDetails();
+                }
                 break;
 
             case 3:
+                System.out.println("Enter flight duration: ");
+                int flightDuration = scanner.nextInt();
+                
+                if (flightDuration <= 0 || flightDuration > 18) {
+                    System.out.println("Invalid time!");
+                    return;
+                }
+
+                SearchFlightsByDuration searchFlightsByDuration = new SearchFlightsByDuration(flightDuration);
+                matchingFlights = searchFlightsByDuration.search(getAllFlights());
+                for (Flight flight: matchingFlights) {
+                    flight.printFlightDetails();
+                }
                   
                 break;
             default:
                 System.out.println("Invalid choice! Try again");
-                watchAndManageAirlineOptions();
+                searchFlightsOptions();
         }
     }
 
