@@ -112,7 +112,7 @@ public class Airport {
 
         System.out.println("1. Price");
         System.out.println("2. Departure time");
-        System.out.println("2. Flight duration");
+        System.out.println("3. Flight duration");
 
 
         System.out.print("Enter your choice: ");
@@ -130,8 +130,10 @@ public class Airport {
                     return;
                 }
 
-                SearchFlightsByPrice searchByPrice = new SearchFlightsByPrice(price);
-                matchingFlights = searchByPrice.search(getAllFlights());
+                SearchFlights searchByPrice = new SearchFlightsByPrice(price);
+                ContextFlights searchFlightsA = new ContextFlights(searchByPrice);
+                matchingFlights = searchFlightsA.performSearch(getAllFlights());
+
                 for (Flight flight: matchingFlights) {
                     flight.printFlightDetails();
                 }
@@ -147,9 +149,11 @@ public class Airport {
                     return;
                 }
 
-                
-                SearchFlightsByDepartureTime searchByDepartureTime = new SearchFlightsByDepartureTime(departureTime);
-                matchingFlights = searchByDepartureTime.search(getAllFlights());
+
+                SearchFlights searchByDepartureTime = new SearchFlightsByDepartureTime(departureTime);
+                ContextFlights searchFlightsB = new ContextFlights(searchByDepartureTime);
+                matchingFlights = searchFlightsB.performSearch(getAllFlights());
+
                 for (Flight flight: matchingFlights) {
                     flight.printFlightDetails();
                 }
@@ -164,8 +168,10 @@ public class Airport {
                     return;
                 }
 
-                SearchFlightsByDuration searchFlightsByDuration = new SearchFlightsByDuration(flightDuration);
-                matchingFlights = searchFlightsByDuration.search(getAllFlights());
+                SearchFlights searchByDuration = new SearchFlightsByDuration(flightDuration);
+                ContextFlights searchFlightsC = new ContextFlights(searchByDuration);
+                matchingFlights = searchFlightsC.performSearch(getAllFlights());
+            
                 for (Flight flight: matchingFlights) {
                     flight.printFlightDetails();
                 }

@@ -1,3 +1,7 @@
+/*
+* Create an interface to use in strategy pattern to represent the search method
+*/
+
 import java.util.ArrayList;
 
 public interface SearchFlights {
