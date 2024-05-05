@@ -1,6 +1,7 @@
-/*
-* Create an interface to use in strategy pattern to represent the search method
-*/
+/**
+ * Interface representing the search method in the strategy pattern for searching flights.
+ * Implementations should define specific search criteria.
+ */
 
 import java.util.ArrayList;
 

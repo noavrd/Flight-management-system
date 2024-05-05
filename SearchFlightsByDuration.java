@@ -1,3 +1,7 @@
+/**
+ * Implementation of SearchFlights interface to search for flights by duration.
+ */
+
 import java.util.ArrayList;
 
 public class SearchFlightsByDuration implements SearchFlights {

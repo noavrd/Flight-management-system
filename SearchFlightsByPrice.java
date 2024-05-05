@@ -1,3 +1,6 @@
+/**
+ * Implementation of SearchFlights interface to search for flights by price.
+ */
 import java.util.ArrayList;
 
 public class SearchFlightsByPrice implements SearchFlights {

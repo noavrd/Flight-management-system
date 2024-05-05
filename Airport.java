@@ -1,9 +1,17 @@
-import java.util.ArrayList;
+/**
+ * The Airport class manages airlines, flights, crew members, passengers, and notifications
+ * within the flight management system. It provides methods for adding mock data, searching flights,
+ * watching and managing airline data, signing in and unsubscribing as observers, creating notifications,
+ * and showing notifications for crew members or passengers. Acting as a central control unit,
+ * it facilitates interactions between users and the flight management system.
+ */
+
+ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Airport {
 
-    // using singelton design pattern to make sure there is only one airport
+    // Using singleton design pattern to ensure there is only one instance of Airport
     private static Airport instance;
 
     private String name;
@@ -11,6 +19,7 @@ public class Airport {
     
     Scanner scanner = new Scanner(System.in);
 
+    // Singleton instance retrieval method
     public static Airport getInstance(){
         if (instance == null){
             instance = new Airport();
@@ -25,8 +34,8 @@ public class Airport {
 
         // Creating airline 1 with mock flights and crew members
         Airline airline1 = new Airline("Airline A", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        Flight flight1 = new Flight(101, 200, 3, 6, 3, airline1, new ArrayList<>(), null);
-        Flight flight2 = new Flight(102, 250, 4, 7, 3, airline1, new ArrayList<>(), null);
+        Flight flight1 = new Flight(101, 200, 3, 6, 3, airline1, new ArrayList<>());
+        Flight flight2 = new Flight(102, 250, 4, 7, 3, airline1, new ArrayList<>());
         airline1.addFlight(flight1);
         airline1.addFlight(flight2);
         airline1.addStaff(new CrewMember(1, "John", "Doe", airline1, 101, 5000));
@@ -41,8 +50,8 @@ public class Airport {
 
         // Creating airline 2 with mock flights and crew members
         Airline airline2 = new Airline("Airline B", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        Flight flight3 = new Flight(103, 20000, 10, 21, 11, airline2, new ArrayList<>(), null);
-        Flight flight4 = new Flight(104, 40000, 14, 18, 4, airline2, new ArrayList<>(), null);
+        Flight flight3 = new Flight(103, 20000, 10, 21, 11, airline2, new ArrayList<>());
+        Flight flight4 = new Flight(104, 40000, 14, 18, 4, airline2, new ArrayList<>());
         airline2.addFlight(flight3);
         airline2.addFlight(flight4);
         airline2.addStaff(new CrewMember(3, "Michael", "Johnson", airline2, 103, 4800));
@@ -57,8 +66,8 @@ public class Airport {
 
         // Creating airline 3 with mock flights and crew members
         Airline airline3 = new Airline("Airline C", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        Flight flight5 = new Flight(105, 200, 10, 15, 5, airline3, new ArrayList<>(), null);
-        Flight flight6 = new Flight(106, 280, 13, 16, 3, airline3, new ArrayList<>(), null);
+        Flight flight5 = new Flight(105, 200, 10, 15, 5, airline3, new ArrayList<>());
+        Flight flight6 = new Flight(106, 280, 13, 16, 3, airline3, new ArrayList<>());
         airline3.addFlight(flight5);
         airline3.addFlight(flight6);
         airline3.addStaff(new CrewMember(5, "David", "Brown", airline3, 105, 4900));
@@ -95,6 +104,7 @@ public class Airport {
     }
 
 
+    // Method to retrieve all flights across all airlines
     public ArrayList<Flight> getAllFlights() {
         ArrayList<Flight> flights = new ArrayList();
         for (Airline airline: airlines) {
@@ -107,6 +117,7 @@ public class Airport {
         return flights;
     }
 
+    // Method to search for flights based on user input
     public void searchFlightsOptions() {
         System.out.println("Search by:");
 
@@ -182,9 +193,6 @@ public class Airport {
                 searchFlightsOptions();
         }
     }
-
-
-
 
     // A function to choose if to watch or manage the airline data
     public void watchAndManageAirlineOptions(){
@@ -289,7 +297,7 @@ public class Airport {
                 int arrivalTime = scanner.nextInt();
                 System.out.print("Enter flight duration: ");
                 int flightDuration = scanner.nextInt();
-                Flight newFlight = new Flight(flightNum, price, departureTime, arrivalTime, flightDuration, chosenAirline, new ArrayList<> (), null);
+                Flight newFlight = new Flight(flightNum, price, departureTime, arrivalTime, flightDuration, chosenAirline, new ArrayList<> ());
                 chosenAirline.addFlight(newFlight);
                 System.out.print("Flight added successfully ");
                 break;
@@ -329,6 +337,105 @@ public class Airport {
             default:
                 System.out.println("Invalid choice! Try again");
                 manageAirline(chosenAirline);
+        }
+    }
+
+     // Method for crew member or passenger to sign in as an observer
+    public void signInAsObserver() {
+        System.out.print("Enter ID: ");
+        int id = scanner.nextInt();
+    
+        for (Airline airline : airlines) {
+            CrewMember crewMember = airline.findCrewMember(id);
+            Passenger passenger = airline.findPassenger(id);
+            if (crewMember != null) {
+                airline.subscribe(crewMember);
+                System.out.println("Signed to be an observer successfully");
+                return;
+
+            } else if (passenger != null){
+                airline.subscribe(passenger);
+                System.out.println("Signed to be an observer successfully");
+                return;
+
+
+            } else {
+                System.out.println("ID does not exist, you can't sign in to be an observer");
+                return;
+            }
+        }
+
+    }
+    
+    // Method for crew member or passenger to unsubscribe as an observer
+    public void unsubscribeAsObserver() {
+
+        System.out.print("Enter ID: ");
+        int id = scanner.nextInt();
+
+       for (Airline airline : airlines) {
+                CrewMember crewMember = airline.findCrewMember(id);
+                Passenger passenger = airline.findPassenger(id);
+            if (crewMember != null) {
+                airline.unsubscribe(crewMember);
+                System.out.println("Unsubscribe as observer successfully");
+                return;
+
+            } else if (passenger != null){
+                airline.unsubscribe(passenger);
+                System.out.println("Unsubscribe as observer successfully");
+                return;
+            }
+            else {
+                System.out.println("Id not exist, you can't unsubscribe to be observer");
+                return;
+            }
+        } 
+    }
+
+    // Method to create new notification for crew member or passenger
+    public void createNotification() {
+        System.out.println("First enter airline to create a new notification: ");
+        Airline chosen = chooseAirlineByName(airlines);
+        scanner.nextLine(); 
+        System.out.println("Enter the new notification: ");
+        String message = scanner.nextLine();
+        chosen.notify(message);
+
+    }
+
+    // Method to choose if a crew member or a passenger will view their notifications
+    public void choosePersonToShow() {
+        System.out.print("Enter ID: ");
+        int id = scanner.nextInt();
+    
+        for (Airline airline : airlines) {
+            CrewMember crewMember = airline.findCrewMember(id);
+            Passenger passenger = airline.findPassenger(id);
+            if (crewMember != null) {
+                showMyNotifications(crewMember);
+                return;
+            } else if (passenger != null){
+                showMyNotifications(passenger);
+                return;
+            } else {
+                System.out.println("ID does not exist");
+                return;
+            }
+        }
+
+    }
+
+    // Method to show notifications for a crew member or passenger
+    public void showMyNotifications(Person person) {
+        ArrayList<String> notifications = person.getNotifications();
+        if (notifications.isEmpty()) {
+            System.out.println("No notifications for " + person.getFirstName());
+        } else {
+            System.out.println("Notifications for " + person.getFirstName() + ":");
+            for (String notification : notifications) {
+                System.out.println(notification);
+            }
         }
     }
 }

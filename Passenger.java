@@ -1,4 +1,13 @@
-import java.util.ArrayList;
+/**
+ * The Passenger class represents individuals traveling on flights. It extends the Person class, inheriting attributes such as ID,
+ * first name, and last name.
+ * Each passenger is associated with a passport number and may be booked on multiple flights,
+ * which are stored in an ArrayList. 
+ * This class provides methods to retrieve the passport number and the list of flights associated with the passenger,
+ * as well as functionality to add or remove flights from their itinerary.
+ */
+
+ import java.util.ArrayList;
 
 public class Passenger extends Person {
     private Person person;

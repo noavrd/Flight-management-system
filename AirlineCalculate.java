@@ -1,4 +1,4 @@
-/*
+/**
  * Strategy Pattern:
  * The AirlineCalculate interface defines a family of methods to calculate
  * airline metrics (totalFlights, totalPassengers, totalProfits).

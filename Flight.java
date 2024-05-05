@@ -1,7 +1,14 @@
-import java.util.ArrayList;
+/**
+ * The Flight class represents a flight within an airline. It stores information
+ * such as flight number, price, departure time, arrival time, and flight duration.
+ * Flights are associated with an airline and can have passengers booked on them.
+ * The class provides methods to retrieve and modify flight details, add and remove passengers,
+ * and calculate total profits, total flights, and total passengers for the flight.
+ */
+
+ import java.util.ArrayList;
 
 public class Flight implements AirlineCalculate {
-    // private int id;
     private int flightNumber;
     private int price;
     private int departureTime;
@@ -9,9 +16,8 @@ public class Flight implements AirlineCalculate {
     private int flightDuration;
     private Airline airline;
     private ArrayList<Passenger> passengers;
-    private PersonNotification notification; // לבדוק אם זה שימוש נכוו
 
-   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightDuration,  Airline airline, ArrayList<Passenger> passengers, PersonNotification notification) {
+   public Flight(int flightNumber, int price, int departureTime, int arrivalTime, int flightDuration,  Airline airline, ArrayList<Passenger> passengers) {
         this.flightNumber = flightNumber;
         this.price = price;
         this.departureTime = departureTime;
@@ -19,7 +25,6 @@ public class Flight implements AirlineCalculate {
         this.flightDuration = flightDuration;
         this.airline = airline;
         this.passengers =  new ArrayList<Passenger>();
-        this.notification = notification;
     }
 
     public int getFlightNumber() {

@@ -1,3 +1,7 @@
+/**
+ * Implementation of SearchFlights interface to search for flights by departure time.
+ */
+
 import java.util.ArrayList;
 
 public class SearchFlightsByDepartureTime implements SearchFlights {
